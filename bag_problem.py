@@ -57,7 +57,7 @@ def bagpro_complete(W, w, v):
             else:
                 L[j] = sheet[i-1]  #装不下就延续之前的最佳数值
 
-        sheet[i] = max(L)  #最后将最大值放入sheet，完成本次容量的判断
+        sheet[i] = max(L)  #最后将汇总的list再取最大值放入sheet，完成本次容量的判断
 
     print(sheet)
 
