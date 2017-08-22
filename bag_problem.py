@@ -80,23 +80,36 @@ def bagpro_complete2(W, w, v):      #方法2，只用1个一维数组完成计�
 #--------------------多重背包问题（每种物品有有限多个）,类似完全背包----------------------------------------------------------
 
 
-def bagpro_multi(W, w, v, c):      
+def bagpro_multi1(W, w, v, c):      
     sheet = [0 for col in range(W+1)]
     count = [0 for col in range(len(w)+1)] #增加count数组，计算每个最大值对应的物品数量
 
-    for i in range(1, len(w)+1):    #外循环，依次考虑所有物品
-        for j in range(1, W+1):     #内循环，顺序遍历所有容量可能（因第j个要参考的最大值，必须是考虑进j之后的值，故必须顺序）
+    for i in range(1, len(w)+1):    #
+        for j in range(W,-1,-1):     #
             if w[i-1] <= j:
                 if sheet[j] < sheet[j-w[i-1]]+v[i-1]:
                     if count[i] < c[i-1]:
                         sheet[j] = sheet[j-w[i-1]]+v[i-1]
                         if j % w[i-1] == 0:
-                            count[i] += 1
-                        print(i,count[i], j,sheet[j])
-                    else:
-                        sheet[j] = sheet[j-1]
+                            count[i] += 1                 
+                        else:
+                            sheet[j] = sheet[j-1]
                 
-        print(sheet)
+    print(sheet)
     
+#------------------------------------------------------------------------
 
-bagpro_multi(12, [2,4], [100,300], [6,3])
+def bagpro_multi2(W, w, v, c):      #方法2
+    sheet = [0 for col in range(W+1)]
+
+    for i in range(1, len(w)+1):    #
+        for j in range(W,-1,-1):
+            for k in range(c[i-1]+1):
+                if w[i-1]*k <= j:
+                    sheet[j] = max(sheet[j], sheet[j-k*w[i-1]]+k*v[i-1])
+                
+
+        print(i,j,k,sheet)
+
+
+bagpro_multi2(20, [9,9,4,1], [3,5,9,8], [3,1,2,3])
