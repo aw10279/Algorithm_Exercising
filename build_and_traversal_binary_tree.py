@@ -2,12 +2,14 @@
 
 
 class Node(object):
+	"""节点类"""
     def __init__(self, elem=-1, lchild=None, rchild=None):
     	self.elem = elem
     	self.lchild = lchild
     	self.rchild = rchild
 
 class Tree(object):
+	"""树类，包含增加节点方法和所有遍历方法"""
 	def __init__(self):
 		self.root = Node()
 		self.queue = []
