@@ -38,10 +38,10 @@ def getLCS(x, y):
         if matri_d[i][j] == 'up':
             i -= 1
 
-    for i in range(len(x)+1):
+    for i in range(1, len(x)+1):
         print(matri_n[i])
 
-    for i in range(len(x)+1):
+    for i in range(1, len(x)+1):
         print(matri_d[i])
 
     print(res)
