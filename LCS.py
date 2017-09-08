@@ -33,8 +33,8 @@ def getLCS(x, y):
             res = x[i-1] + res
             i -= 1
             j -= 1
-        if matri_d[i][j] == 'left':
-            j -= 1
+        if matri_d[i][j] == 'left':     #若左和上的数值相等，且最长序列不止一个，选择向左或向上将会出现不同的结果
+            j -= 1                      #若最长只有一个，不论选择哪个方向都是一样的
         if matri_d[i][j] == 'up':
             i -= 1
 
