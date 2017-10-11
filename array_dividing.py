@@ -7,7 +7,7 @@ def bagpro_trans1(L): #方法1，三维数组记录所有状态（可选范围�
     sum = reduce(lambda x, y: x+y, L)  #计算总量
     matrix = [[[0 for x in range(sum//2+1)] for y in range(len(L)//2+1)] for z in range(len(L)+1)]  #创建三维数组并初始化
     for i in range(1, len(L)+1):
-        for j in range(min(i+1, len(L)//2+1)):      #此处从0开始遍历才能得出正确结果，原因不明
+        for j in range(1, min(i+1, len(L)//2+1)):      #此处从0开始遍历才能得出正确结果，原因不明
             for k in range(1, sum//2+1):            #三重for循环，由外至内分别遍历可选范围、可选数量、最大值。
                 if L[i-1] <= k:  #如果不超过最大值
                     matrix[i][j][k] = max(matrix[i-1][j][k], matrix[i-1][j-1][k-L[i-1]]+L[i-1]) #比较放和不放的价值
@@ -26,17 +26,17 @@ def bagpro_trans2(L):  #方法2：用二维数组替代，降低空间复杂度�
     sum = reduce(lambda x, y: x+y, L)       
     matrix = [[0 for x in range(sum//2+1)] for y in range(len(L)//2+1)]
     for i in range(1, len(L)+1):
-        for j in range(min(i+1, len(L)//2+1)):  #此处按道理应逆序遍历，但顺序也可以输出正确结果，原因不明
-            for k in range(1, sum//2+1):
+        for j in range(min(i, len(L)//2),0,-1):  #因j行要参考j-1行的值，此处需逆序遍历（同01背包）
+            for k in range(1, sum//2+1):         #此结构已是分行存储，当前计算不影响上一行数据，无需逆序
                 if L[i-1] <= k:  
                     matrix[j][k] = max(matrix[j][k], matrix[j-1][k-L[i-1]]+L[i-1]) 
-                else:
-                    matrix[j][k] = matrix[j][k]  
+                #else:
+                    #matrix[j][k] = matrix[j][k]  
 
     for i in range(len(L)//2+1):
         print(matrix[i])
     print('sum = ', sum)
     print('minimum difference = ', abs(sum-2*matrix[len(L)//2][sum//2]))
 
-#bagpro_trans1([31,9,15,13,19,8,12,17,21])
-bagpro_trans2([31,29,42,35,23,33,51,47,21])
+bagpro_trans1([31,29,42,35,29,33,66,47])
+bagpro_trans2([31,29,42,35,29,33,66,47])
